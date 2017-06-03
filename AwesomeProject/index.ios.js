@@ -15,8 +15,12 @@ import {
 var MOCKED_MOVIES_DATA = [
   {title: 'Title', year: '2015', posters: {thumbnail: 'https://i.imgur.com/UePbdph.jpg'}},
 ];
+//URL for requesting JSON objects to populate the app view
+var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
 //creting a class with a series of text components with styles applied which are defined below
+
 export default class AwesomeProject extends Component {
+
   render() {
     /*
     * Assigning global array element to local class variable
@@ -24,55 +28,61 @@ export default class AwesomeProject extends Component {
     * be applied to the thumnail for it to appear
     */
     var movie = MOCKED_MOVIES_DATA[0];
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to Fionn's React Native Tutorial!
-        </Text>
-
-        <Text>{movie.title}</Text>
-        <Text>{movie.year}</Text>
-        <Image source={{uri: movie.posters.thumbnail}} 
-          style={styles.thumbnail}/>
-      </View>
-    );
+      return (
+        <View style={styles.container}>
+          <Image
+            source={{uri: movie.posters.thumbnail}}
+            style={styles.thumbnail}/>
+          <View style={styles.rightContainer}>
+            <Text style={styles.title}>{movie.title}</Text>
+            <Text style={styles.year}>{movie.year}</Text>
+          </View>
+        </View>
+      );
+    //Note: like html the style goes within the tag, obviously
   }
+
 }
 //creating new styles with various classes of style to be applied above
+/*
+*Stylesheet properties
+* flex --> appears to be a relative size multiplier and only works in combination with others
+*      --> flex: 3 is three times the size of flex:1
+* flexDirection --> appears to be how things are laid out on the app
+*               --> | column |
+*               --> | column | 
+*               --> | column | 
+*               --> |  row   |  row   |  row   |
+* alignItems --> determines alignment of children on a secondary axis. If primary axis is 
+             --> row then secondary axis is column
+* justifyContent --> determines the distribution of conmponents
+*/
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+   rightContainer: {
+    flex: 1,
   },
-  instructions: {
+  title: {
+    fontSize: 20,
+    marginBottom: 8,
     textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  },
+  year: {
+    textAlign: 'center',
   },
   thumbnail: {
     width: 53,
     height: 81,
   }
 });
-
-/*
-        //Code removed on line 26
-          <Text style={styles.instructions}>
-            To get started, edit index.ios.js
-          </Text>
-          <Text style={styles.instructions}>
-            Press Cmd+R to reload,{'\n'}
-            Cmd+D or shake for dev menu
-          </Text>
-        
-*/
 
 //Deploying the project
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
